@@ -69,7 +69,7 @@ function buildCharts(sample) {
     // 2. Create a variable that holds the first sample in the metadata array.
     var resultWashFreq = metadata.filter(sampleObj => sampleObj.id == sample);
     var result2 = resultWashFreq[0];
-    
+
     // 6. Create variables that hold the otu_ids, otu_labels, and sample_values.
     var otu_ids = result.otu_ids;
     var otu_labels = result.otu_labels;
@@ -77,8 +77,7 @@ function buildCharts(sample) {
     
 
     // 3. Create a variable that holds the washing frequency.
-    var washing_frequency = result2.washing_frequency;
-    console.log(washing_frequency);
+    var washing_frequency = result2.wfreq;
 
     // 7. Create the yticks for the bar chart.
     // Hint: Get the the top 10 otu_ids and map them in descending order  
@@ -100,8 +99,14 @@ function buildCharts(sample) {
 
     // 9. Create the layout for the bar chart. 
     var barLayout = {
-      title: "Top 10 Bacteria Cultures found",
-      margin: { t: 30, l: 150 }
+      title: {
+        text: "Top 10 Bacteria Cultures Found",
+        font: {size: 24}
+      },
+      autosize: true,
+      height: 400,
+      xaxis: {automargin: true},
+      yaxis: {automargin: true}
     };
     // 10. Use Plotly to plot the data with the layout. 
     Plotly.newPlot("bar", barData, barLayout);
@@ -122,7 +127,10 @@ function buildCharts(sample) {
 
     // Create the layout for the bubble chart.
     var bubbleLayout = {
-      title: "Bacteria Cultures Per Sample",
+      title: {
+        text: "Bacteria Cultures Per Sample",
+        font: {size: 24}
+      },
       xlabel: "OTU ID",
       hovermode: otu_labels,
       showlegend: false
@@ -136,7 +144,10 @@ function buildCharts(sample) {
      {
        domain: { x:[0,1], y: [0,1]},
        value: washing_frequency,
-       title: "Belly Button Washing Frequency",
+       title: {
+         text: "Belly Button Washing Frequency",
+         font: {size: 24}
+       },
        type: "indicator",
        mode: "gauge+number",
        gauge: {
@@ -144,10 +155,11 @@ function buildCharts(sample) {
          steps: [
            { range: [0,2], color: "red"},
            { range: [2,4], color: "orange"},
-           { range: [5,6], color: "yellow"},
-           { range: [7,8], color: "lightgreen"},
-           { range: [9,10], color: "green"}
-          ]
+           { range: [4,6], color: "yellow"},
+           { range: [6,8], color: "lightgreen"},
+           { range: [8,10], color: "green"}
+          ],
+          bar: {color: "black"}
        }
      }
     ];
